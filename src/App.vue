@@ -1,28 +1,65 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main class="main">
+    <Logo logoText="Smoothie Match"/>
+    <section id="content">
+      Smoothie match was designed by smootie specialists to find the perfect flavor to match your mood and...
+    </section>
+    <section id="action">
+      <button id="buttonCreate">Create your own smoothie</button>
+      <button id="buttonList">Take me to the smoothies!</button>
+    </section>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Logo from './components/Logo'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components:{
+    'Logo': Logo
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .main {
+    display: flex;
+    margin: 10px;
+    font-family: 'Roboto';
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #content {
+    border-radius: 20px;
+    border: 2px solid tomato;
+    width: 220px;
+    padding: 20px;
+    text-align: justify;
+  }
+
+  #action {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #buttonCreate {
+    cursor: pointer;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid teal;
+    border-radius: 10px;
+    margin: 20px;
+  }
+
+  #buttonList {
+    cursor: pointer;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid blue;
+    border-radius: 10px;
+    margin: 20px;
+  }
 </style>

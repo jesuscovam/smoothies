@@ -5,14 +5,14 @@
 
       <InputDiv>
         <h2 class="inputHeader">Smoothie name:</h2>
-        <input type="text" class="inputText"/>
+        <input type="text" class="inputText" v-model="name"/>
       </InputDiv>
 
       <InputDiv>
         <h2 class="inputHeader">Fruits:</h2>
         <div class="inputSign"> 
           <select type="text" id="inputFruit" v-model="fruit">
-            <option v-for="fruit in fruits" :key="fruit.id" :value="fruit.name">
+            <option v-for="fruit in fruits" :key="fruit.id" :value="fruit">
               {{ fruit.name }}
             </option>
           </select>
@@ -43,12 +43,15 @@
       <InputDiv>
         <h2 class="inputHeader">Taste:</h2>
         <div class="inputSign">
-          <span id="taste">{{ taste }} %</span>
+          <input type="number" id="taste" v-model="taste"/>
+          <span>%</span>
           <i class="fas fa-fire-alt flameIcon" />
         </div>
       </InputDiv>
+      <p v-if="alert">Taste should be a number between 0 and 100</p>
+      <p v-if="secondAlert">Please, complete all fields</p>
       <InputDiv>
-      <button id="buttonList">
+      <button id="buttonList" v-on:click="sendSmoothie">
         Save it!
       </button>
       </InputDiv>
@@ -66,6 +69,10 @@ export default {
   },
   data: function(){
     return {
+      urlIngredients: 'https://obscure-coast-72339.herokuapp.com/ingredients',
+      urlSmoothies: 'https://obscure-coast-72339.herokuapp.com/smoothies',
+      urlDemo: 'http://localhost:5000/smoothies',
+      name: '',
       fruits: null,
       liquids: null,
       proteins: null,
@@ -73,11 +80,14 @@ export default {
       liquid: '',
       protein: '',
       selectedFruit: [],
-      taste: 0
+      taste: 0,
+      sign: '%',
+      alert: false,
+      secondAlert: false
     }
   },
   mounted() {
-    fetch('https://obscure-coast-72339.herokuapp.com/ingredients')
+    fetch(this.urlIngredients)
       .then((response) => {
         response.json().then((data) => {
           const { fruits, liquids, proteins } = data
@@ -92,8 +102,51 @@ export default {
       if (this.selectedFruit.includes(this.fruit)) {
         console.log('fruit already included')
         return
+      } 
+      const { name, value } = this.fruit
+      const newValue = {
+        name,
+        value: parseInt(value)
       }
-      this.selectedFruit.push(this.fruit)
+      this.selectedFruit.push(newValue)
+    },
+    async sendSmoothie(){
+      if (this.taste > 100 || this.taste < 0) {
+        this.alert = true
+        setTimeout(() => {
+          this.alert = false
+        }, 3000)
+        return
+      } else if (this.name === '' || this.liquid === '' || this.protein === '' || this.selectedFruit.length === 0) {
+        this.secondAlert = true
+        setTimeout(() => {
+          this.secondAlert = false
+        }, 3000)
+        return
+      }
+      try {
+        const smoothie = {
+          name: this.name,
+          fruits: this.selectedFruit,
+          liquid: this.liquid,
+          protein: this.protein,
+          taste: this.taste
+        }
+
+        const jsoned = JSON.stringify(smoothie)
+        const response = await fetch(this.urlSmoothies, {
+          method: 'POST',
+          mode: 'cors',
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsoned
+        })
+        console.log(response.json())
+      } catch (error) {
+        console.error('error sending smoothie to server', error)
+      }
     }
   }
 }
@@ -153,6 +206,7 @@ export default {
     border: 1px solid #999;
     padding: 8px;
     border-radius: 5px;
+    width: 40px;
   }
 
   .flameIcon {

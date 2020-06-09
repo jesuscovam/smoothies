@@ -49,6 +49,7 @@ export default {
   #buttonCreate {
     cursor: pointer;
     background-color: white;
+    width: 260px;
     padding: 10px;
     border: 2px solid lawngreen;
     border-radius: 16px;
@@ -58,6 +59,7 @@ export default {
     cursor: pointer;
     background-color: white;
     padding: 10px;
+    width: 260px;
     border: 2px solid blue;
     border-radius: 16px;
     margin: 20px;

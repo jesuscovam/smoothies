@@ -134,7 +134,7 @@ export default {
         }
 
         const jsoned = JSON.stringify(smoothie)
-        const response = await fetch(this.urlSmoothies, {
+        const response = await fetch(this.urlDemo, {
           method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
@@ -142,8 +142,9 @@ export default {
             'Content-Type': 'application/json'
           },
           body: jsoned
-        })
+        }).catch(err => console.error(err))
         console.log(response.json())
+        this.$router.push('/smoothies')
       } catch (error) {
         console.error('error sending smoothie to server', error)
       }

@@ -16,6 +16,7 @@ export default {
 <style>
  body {
    font-family: 'Roboto', sans-serif;
+   font-weight: 400;
  }
  ul {
    list-style: none;

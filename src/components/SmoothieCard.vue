@@ -48,18 +48,19 @@ export default {
         border: 1px solid #999;
         align-items: left;
         padding: 8px 16px;
-        width: 300px;
+        width: 400px;
         margin: 10px;
     }
     #mainHeader {
         display: flex;
+        font-weight: 400;
         justify-content: space-between;
         align-items: center;
         padding: 5px 5px;
         border-bottom:1px solid #999;
     }
     #mainContent {
-        font-weight: 800;
+        font-weight: 700;
         font-size: 1.3em;
     }
     .miniSection {

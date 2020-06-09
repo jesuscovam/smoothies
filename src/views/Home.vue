@@ -5,8 +5,8 @@
       Smoothie match was designed by smootie specialists to find the perfect flavor to match your mood and...
     </section>
     <section id="action">
-      <button v-on:click="goSmoothie" id="buttonCreate">Create your own smoothie</button>
-      <button id="buttonList">Take me to the smoothies!</button>
+      <button v-on:click="goSmoothie" id="buttonCreate" type="button">Create your own smoothie</button>
+      <button v-on:click="goList" id="buttonList" type="button">Take me to the smoothies!</button>
     </section>
   </main>
 </template>
@@ -21,6 +21,9 @@ export default {
   methods: {
     goSmoothie() {
       this.$router.push('/smoothie')
+    },
+    goList() {
+      this.$router.push('/smoothies')
     }
   }
 }

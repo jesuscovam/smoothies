@@ -16,9 +16,10 @@
               {{ fruit.name }}
             </option>
           </select>
-          <button v-on:click="addFruit" id="plusButton">
+          <button v-on:click="addFruit" id="plusButton" type="button">
             <i class="fas fa-plus plusIcon"></i>
           </button>
+          <p v-if="alertAdded" id="alert">added!</p>
         </div>
       </InputDiv>
 
@@ -83,7 +84,8 @@ export default {
       taste: 0,
       sign: '%',
       alert: false,
-      secondAlert: false
+      secondAlert: false,
+      alertAdded: false
     }
   },
   mounted() {
@@ -108,7 +110,13 @@ export default {
         name,
         value: parseInt(value)
       }
+      // edits
       this.selectedFruit.push(newValue)
+      this.alertAdded = true
+      setTimeout(() => {
+        this.alertAdded = false
+      }, 2000)
+
     },
     async sendSmoothie(){
       if (this.taste > 100 || this.taste < 0) {
@@ -134,7 +142,7 @@ export default {
         }
 
         const jsoned = JSON.stringify(smoothie)
-        const response = await fetch(this.urlDemo, {
+        const response = await fetch(this.urlSmoothies, {
           method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
@@ -214,5 +222,10 @@ export default {
     color: tomato;
     font-size: 2em;
     margin-left: 20px;
+  }
+
+  #alert {
+    margin-left: 10px;
+    color: lawngreen;
   }
 </style>

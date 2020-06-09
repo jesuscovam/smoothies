@@ -4,15 +4,12 @@
         <span aria-label="flame icon">
             <i class="fas fa-fire-alt icon"></i>
         </span>
-        <h1>{{ logoText }}</h1>
+        <h1>Smoothie Match</h1>
     </div>
 </template>
 <script>
 export default {
     name: 'Logo',
-    props:{
-        logoText: String
-    }
 }
 </script>
 <style scoped>
